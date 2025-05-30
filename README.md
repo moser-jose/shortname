@@ -1,6 +1,6 @@
-# [shortname-js](https://github.com/moser-jose/shortname-js)
+# [shortname](https://github.com/moser-jose/shortname-js)
 
-`shortname-js` is a JavaScript function designed to shorten names (Portuguese - PT 🇵🇹 | BR 🇧🇷 | AO 🇦🇴) in a simple and user-friendly way. The function allows users to quickly enter full names and receive abbreviated versions of those names in return.
+`shortname` is a JavaScript function designed to shorten names (Portuguese - PT 🇵🇹 | BR 🇧🇷 | AO 🇦🇴) in a simple and user-friendly way. The function allows users to quickly enter full names and receive abbreviated versions of those names in return.
 
 [![The MIT License](https://img.shields.io/badge/license-MIT-blue.svg)](http://opensource.org/licenses/MIT) 
 [![Version](https://img.shields.io/github/package-json/v/moser-jose/shortname-js)](https://github.com/moser-jose/shortname-js)
@@ -18,17 +18,17 @@
 
 ### yarn
 
-`yarn add @mosmmy/shortname-js`
+`yarn add @mosmmy/shortname`
 
 ### NPM
 
-`npm install @mosmmy/shortname-js`
+`npm install @mosmmy/shortname`
 
 ### Use
 
 ```javascript
 
-import { shortName } from '@mosmmy/shortname-js'
+import { shortName } from '@mosmmy/shortname'
 
 console.log(shortName('Jorge Pedro André dos Santos'))          //Jorge P. A. dos Santos
 
@@ -43,7 +43,7 @@ To run the test:
 
 `npm run test`
 
-`npm run test:**coverage**`
+`npm run test:coverage`
 
 ## Licence
 
