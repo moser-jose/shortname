@@ -41,11 +41,11 @@
   },
   "devDependencies": {
     "@eslint/js": "9.21.0",
-    "@types/jest": "^29.5.12",
+    "@types/jest": "^29.5.14",
     "@typescript-eslint/eslint-plugin": "8.26.0",
     "@typescript-eslint/parser": "8.26.0",
     "bs-logger": "^0.2.6",
-    "eslint": "9.21.0",
+    "eslint": "^9.39.5",
     "eslint-config-prettier": "10.0.2",
     "eslint-plugin-prettier": "5.2.3",
     "globals": "16.0.0",
