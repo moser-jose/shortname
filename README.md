@@ -1,18 +1,17 @@
-# [shortname](https://github.com/moser-jose/shortname-js)
+# [shortname](https://github.com/moser-jose/shortname)
 
 `shortname` is a JavaScript function designed to shorten names (Portuguese - PT 🇵🇹 | BR 🇧🇷 | AO 🇦🇴) in a simple and user-friendly way. The function allows users to quickly enter full names and receive abbreviated versions of those names in return.
 
 [![The MIT License](https://img.shields.io/badge/license-MIT-blue.svg)](http://opensource.org/licenses/MIT) 
-[![Version](https://img.shields.io/github/package-json/v/moser-jose/shortname-js)](https://github.com/moser-jose/shortname-js)
-[![npm](https://img.shields.io/npm/v/@mosmmy/shortname-js)](https://www.npmjs.com/package/@mosmmy/shortname-js)
-[![npm downloads](https://img.shields.io/npm/dm/@mosmmy/shortname-js)](https://www.npmjs.com/package/@mosmmy/shortname-js)
-[![npm bundle size](https://img.shields.io/bundlephobia/min/@mosmmy/shortname-js)](https://bundlephobia.com/package/@mosmmy/shortname-js)
+[![Version](https://img.shields.io/github/package-json/v/moser-jose/shortname)](https://github.com/moser-jose/shortname)
+[![npm](https://img.shields.io/npm/v/@mosmmy/shortname)](https://www.npmjs.com/package/@mosmmy/shortname)
+[![npm downloads](https://img.shields.io/npm/dm/@mosmmy/shortname)](https://www.npmjs.com/package/@mosmmy/shortname)
 [![TypeScript](https://img.shields.io/badge/TypeScript-supported-blue)](https://www.typescriptlang.org/)
 [![Prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg)](https://prettier.io/)
 [![Jest](https://img.shields.io/badge/tested_with-jest-99424f.svg)](https://jestjs.io/)
-[![Coverage Status](https://img.shields.io/badge/coverage-100%25-brightgreen.svg)](https://github.com/moser-jose/shortname-js)
+[![Coverage Status](https://img.shields.io/badge/coverage-100%25-brightgreen.svg)](https://github.com/moser-jose/shortname)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](http://makeapullrequest.com)
-[![GitHub stars](https://img.shields.io/github/stars/moser-jose/shortname-js?style=social)](https://github.com/moser-jose/shortname-js/stargazers)
+[![GitHub stars](https://img.shields.io/github/stars/moser-jose/shortname?style=social)](https://github.com/moser-jose/shortname/stargazers)
 
 ## Install
 
