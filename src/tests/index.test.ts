@@ -77,4 +77,50 @@ describe('shortName', () => {
   test('should handle numbers', () => {
     expect(shortName('343434343434')).toBeUndefined()
   })
+  test('should keep accents in a single name', () => {
+    expect(shortName('josé')).toBe('José')
+  })
+
+  test('should return undefined for non-string input', () => {
+    expect(shortName(undefined as unknown as string)).toBeUndefined()
+    expect(shortName(null as unknown as string)).toBeUndefined()
+    expect(shortName(123 as unknown as string)).toBeUndefined()
+  })
+
+  describe('positions', () => {
+    test('should abbreviate only the given position', () => {
+      expect(shortName('Jorge Pedro André dos Santos', 1)).toBe('J. Pedro André dos Santos')
+      expect(shortName('Jorge Pedro André dos Santos', 2)).toBe('Jorge P. André dos Santos')
+    })
+
+    test('should abbreviate several positions', () => {
+      expect(shortName('Jorge Pedro André dos Santos', 1, 2, 3)).toBe('J. P. A. dos Santos')
+      expect(shortName('Jorge Pedro André dos Santos', 1, 4)).toBe('J. Pedro André dos S.')
+    })
+
+    test('should never abbreviate nor count prepositions', () => {
+      expect(shortName('Pedro de Sousa André', 2)).toBe('Pedro de S. André')
+      expect(shortName('Pedro de Sousa André', 1, 2, 3)).toBe('P. de S. A.')
+    })
+
+    test('should ignore invalid or out of range positions', () => {
+      expect(shortName('John James Doe', 0, -1, 9, 1.5)).toBe('John James Doe')
+    })
+
+    test('should abbreviate the last name when asked', () => {
+      expect(shortName('John Doe', 2)).toBe('John D.')
+    })
+
+    test('should accept an array of positions', () => {
+      expect(shortName('Jorge Pedro André dos Santos', [1, 2, 3])).toBe('J. P. A. dos Santos')
+      expect(shortName('Jorge Pedro André dos Santos', [1], 4)).toBe('J. Pedro André dos S.')
+      expect(shortName('Jorge Pedro André e Santos', [])).toBe('Jorge P. A. e Santos')
+    })
+
+    test('should use at most 6 positions', () => {
+      const name = 'Ana Bia Caio Davi Fred Gil Hugo Ivo'
+      expect(shortName(name, 1, 2, 3, 4, 5, 6, 7)).toBe('A. B. C. D. F. G. Hugo Ivo')
+      expect(shortName(name, [1, 2, 3, 4, 5, 6, 7])).toBe('A. B. C. D. F. G. Hugo Ivo')
+    })
+  })
 })
