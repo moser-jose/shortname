@@ -1,55 +1,58 @@
-const PREPOSITIONS = ['de', 'do', 'dos', 'da', 'das', 'e']
-const normalized = (name: string): string => {
-  return name
-    .normalize('NFD')
-    .replace(/[\u0300-\u036f]/g, '')
-    .replace(/[^a-zA-Z\s]/g, '')
-}
+const PREPOSITIONS = new Set(['de', 'do', 'dos', 'da', 'das', 'e'])
 
-const capitalizeWord = (word: string): string => {
-  return word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()
-}
+const removeAccents = (text: string): string => text.normalize('NFD').replace(/[̀-ͯ]/g, '')
 
-export function shortName(fullName: string): string | undefined {
-  if (!fullName?.trim()) return undefined
+const capitalize = (word: string): string =>
+  word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()
 
-  let nameSplit: string[] = fullName
-    .split(' ')
+const isPreposition = (word: string): boolean => PREPOSITIONS.has(word.toLowerCase())
+
+const MAX_POSITIONS = 6
+
+type Positions = Array<number | number[]>
+
+const toInitial = (word: string): string => `${removeAccents(word).charAt(0).toUpperCase()}.`
+
+/**
+ * Shortens a full name.
+ *
+ * Without `positions`, the first and last names are kept and every name in
+ * between is abbreviated. With `positions`, only the names at those 1-based
+ * positions are abbreviated (e.g. `1` is the first name, `2` the second).
+ * They can be passed as separate arguments or as an array, up to 6 (extras are ignored).
+ * Prepositions (de, do, dos, da, das, e) are never abbreviated nor counted.
+ */
+export function shortName(fullName: string, ...positionArgs: Positions): string | undefined {
+  if (typeof fullName !== 'string') return undefined
+
+  const positions = positionArgs.flat().slice(0, MAX_POSITIONS)
+
+  const words = fullName
+    .normalize('NFC')
+    .split(/\s+/)
+    .map(word => word.replace(/[^\p{L}]|[ªº]/gu, ''))
     .filter(Boolean)
-    .map(part => part.replace(/[^a-záàâãéèêíïóôõöúçA-ZÁÀÂÃÉÈÊÍÏÓÔÕÖÚÇ\s]/g, ''))
-    .filter(part => part !== '')
 
-  let penultimate: string = ''
+  if (words.length === 0) return undefined
 
-  if (PREPOSITIONS.includes(nameSplit[nameSplit.length - 2])) {
-    penultimate = nameSplit[nameSplit.length - 2]
-  }
+  const lastIndex = words.length - 1
+  // The first and last words are always names, even when they look like a preposition.
+  const isName = (word: string, index: number): boolean =>
+    index === 0 || index === lastIndex || !isPreposition(word)
 
-  nameSplit = nameSplit.slice(0, -2).concat(nameSplit.slice(-2))
+  const nameCount = words.filter(isName).length
+  let nameNumber = 0
 
-  let middleName: string = ' '
+  return words
+    .map((word, index) => {
+      if (!isName(word, index)) return word.toLowerCase()
 
-  if (nameSplit.length === 0) return undefined
-  if (nameSplit.length === 1) return capitalizeWord(normalized(nameSplit[0]))
-  else if (nameSplit.length > 2) {
-    const lastIndex = penultimate ? nameSplit.length - 2 : nameSplit.length - 1
-    for (let i = 1; i < lastIndex; i++) {
-      const normalizedName = normalized(nameSplit[i])
-      if (PREPOSITIONS.includes(normalizedName)) {
-        middleName += `${normalizedName} `
-      }
-      if (normalizedName[0] && !PREPOSITIONS.includes(normalizedName)) {
-        middleName += `${normalizedName[0].toUpperCase()}. `
-      }
-    }
-    if (PREPOSITIONS.includes(penultimate)) {
-      middleName += `${penultimate} `
-    }
-  }
-  let first = capitalizeWord(nameSplit[0])
-  let last = capitalizeWord(nameSplit[nameSplit.length - 1])
+      nameNumber++
+      const abbreviate = positions.length
+        ? positions.includes(nameNumber)
+        : nameNumber > 1 && nameNumber < nameCount
 
-  if (first && last) {
-    return first + middleName + last
-  }
+      return abbreviate ? toInitial(word) : capitalize(word)
+    })
+    .join(' ')
 }
