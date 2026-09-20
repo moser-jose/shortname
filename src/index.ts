@@ -16,6 +16,8 @@ const toInitial = (word: string): string => `${removeAccents(word).charAt(0).toU
 /**
  * Shortens a full name.
  *
+ * Names may be separated by spaces, underscores (`_`) or hyphens (`-`).
+ *
  * Without `positions`, the first and last names are kept and every name in
  * between is abbreviated. With `positions`, only the names at those 1-based
  * positions are abbreviated (e.g. `1` is the first name, `2` the second).
@@ -29,7 +31,7 @@ export function shortName(fullName: string, ...positionArgs: Positions): string 
 
   const words = fullName
     .normalize('NFC')
-    .split(/\s+/)
+    .split(/[\s_-]+/)
     .map(word => word.replace(/[^\p{L}]|[ªº]/gu, ''))
     .filter(Boolean)
 

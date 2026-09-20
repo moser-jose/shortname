@@ -66,6 +66,13 @@ describe('shortName', () => {
     expect(shortName('Ana Lima e Silva Ferreira')).toBe('Ana L. e S. Ferreira')
   })
 
+  test('should treat underscores and hyphens as name separators', () => {
+    expect(shortName('Maria-Clara_ Souza')).toBe('Maria C. Souza')
+    expect(shortName('Ana_Paula_Ribeiro Silva')).toBe('Ana P. R. Silva')
+    expect(shortName('João_Pedro-dos Santos')).toBe('João P. dos Santos')
+    expect(shortName('Maria-Clara-Souza_dos Santos')).toBe('Maria C. S. dos Santos')
+  })
+
   test('should handle single name', () => {
     expect(shortName('John')).toBe('John')
   })
