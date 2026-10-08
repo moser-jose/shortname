@@ -1,26 +1,34 @@
 {
   "name": "@mosmmy/shortname",
-  "version": "3.0.0",
+  "version": "3.0.1",
   "description": "shortname is a JavaScript function designed to shorten names in a simple and user-friendly way. The function allows users to quickly enter full names and receive abbreviated versions of those names in return",
   "displayName": "shortname",
   "type": "module",
-  "main": "dist/index.js",
-  "types": "dist/index.d.ts",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    },
+    "./package.json": "./package.json"
+  },
   "files": [
-    "src",
     "dist",
-    "LICENSE",
-    "README.md",
-    "package.json"
+    "src",
+    "!src/tests",
+    "LICENSE.md",
+    "README.md"
   ],
   "scripts": {
-    "build": "tsc --declaration",
+    "build": "rm -rf dist && tsc",
     "test": "jest",
     "test:watch": "jest --watch",
     "test:coverage": "jest --coverage",
     "lint": "eslint 'src/**/*.{ts,js}'",
     "lint:fix": "eslint 'src/**/*.{ts,js}' --fix",
-    "format": "prettier --write 'src/**/*.{ts,js}'"
+    "format": "prettier --write 'src/**/*.{ts,js}'",
+    "prepublishOnly": "npm run lint && npm test && npm run build"
   },
   "keywords": [
     "shortname",
